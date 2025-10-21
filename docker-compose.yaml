@@ -1,0 +1,23 @@
+x-common-env: &common-env
+  PORT: "8000"
+  PYTHONPATH: "/app/src"
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    image: lora-api:dev
+    container_name: lora-api-dev
+    ports:
+      - "8000:8000"
+    environment:
+      <<: *common-env
+      FASTAPI_ENV: development
+    volumes:
+      - ./src:/app/src:delegated
+      - ./.env:/app/.env:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: "no"
