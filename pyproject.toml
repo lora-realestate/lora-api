@@ -17,7 +17,19 @@ dependencies = [
 [tool.poetry]
 packages = [{ include = "lora_api", from = "src" }]
 
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+adopts = "-q --maxfail=1 --cov=src --cov-report=term-missing"
+testpaths = ["tests"]
+
 [build-system] 
 requires = ["poetry-core>=2.0.0,<3.0.0"] 
 build-backend = "poetry.core.masonry.api"
 
+[dependency-groups]
+dev = [
+    "pytest (>=8.4.2,<9.0.0)",
+    "pytest-asyncio (>=1.2.0,<2.0.0)",
+    "httpx (>=0.28.1,<0.29.0)",
+    "pytest-cov (>=7.0.0,<8.0.0)"
+]
