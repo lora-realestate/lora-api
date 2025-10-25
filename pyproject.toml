@@ -1,7 +1,7 @@
 [project]
 name = "lora-api" 
 version = "0.0.1" 
-description = "" 
+description = "Automation API for client follow-up workflows" 
 authors = [ 
    {name = "sebalooc-35",email = "andres.rodriguez.pama@gmail.com"},
    {name = "vallit0",email = "vallit0@gmail.com"} 
@@ -9,16 +9,15 @@ authors = [
 readme = "README.md" 
 requires-python = ">=3.12" 
 dependencies = [ 
+   "fastapi (>=0.119.1,<0.120.0)" ,
    "gunicorn (>=23.0.0,<24.0.0)", 
    "uvicorn (>=0.38.0,<0.39.0)", 
-   "fastapi (>=0.119.1,<0.120.0)" 
 ] 
+
+[tool.poetry]
+packages = [{ include = "lora_api", from = "src" }]
 
 [build-system] 
 requires = ["poetry-core>=2.0.0,<3.0.0"] 
 build-backend = "poetry.core.masonry.api"
 
-[dependency-groups]
-dev = [
-    "pytest (>=8.4.2,<9.0.0)"
-]
