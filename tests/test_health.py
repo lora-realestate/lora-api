@@ -2,7 +2,7 @@ import time
 import pytest
 
 @pytest.mark.unit
-def test_health_ok(clilent):
+def test_health_ok(client):
     t0 = time.perf_counter()
     r = client.get("/health")
     dt = (time.perf_counter() - t0) * 1000

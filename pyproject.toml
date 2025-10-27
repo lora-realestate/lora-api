@@ -20,7 +20,7 @@ packages = [{ include = "lora_api", from = "src" }]
 [tool.pytest.ini_options]
 pythonpath = ["src"]
 testpaths = ["tests"]
-adopts = "-q --maxfail=1 --cov=src --cov-report=term-missing"
+addopts = "-q --maxfail=1 --cov=src --cov-report=term-missing"
 markers = [
 "unit: fast tests, no external services",
 "integration: tests that hit DB or external APIs",
