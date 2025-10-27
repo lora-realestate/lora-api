@@ -1,19 +1,46 @@
 services:
+
+  db:
+    image: postgres:17
+    container_name: lora-db-dev
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: "${POSTGRES_DB:-appdb}"
+      POSTGRES_USER: "${POSTGRES_USER:-app}"
+      POSTGRES_PASSWORD: "${POSTGRES_PASSWORD:-app}"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-app} -d ${POSTGRES_DB:-appdb}"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
   api:
     build:
       context: .
       dockerfile: Dockerfile
+      target: dev
     image: lora-api:dev
     container_name: lora-api-dev
+    depends_on:
+      db:
+        condition: service_healthy
     ports:
-      - "8000:8000"
+      - "${PORT:-8000}"
     environment:
       PORT: "8000"
-      PYTHONPATH: "/app/src"
       FASTAPI_ENV: development
+    healthcheck:
+      test: ["CMD", "curl", "-fsS", "http://localhost:8000/health"]
     volumes:
       - ./src:/app/src:delegated
       - ./.env:/app/.env:ro
     extra_hosts:
       - "host.docker.internal:host-gateway"
     restart: "no"
+
+
+volumes:
+  pgdata:
