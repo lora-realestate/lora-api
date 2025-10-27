@@ -68,7 +68,7 @@ EXPOSE ${PORT}
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD curl -fsS http://localhost:${PORT}/health || exit 1
 
-CMD bash -c "gunicorn -k uvicorn.workers.UvicornWorker main:app --bind 0.0.0.0:${PORT:-8000} --workers 3 --timeout 60"
+CMD bash -c "gunicorn -k uvicorn.workers.UvicornWorker lora_api.main:app --bind 0.0.0.0:${PORT:-8000} --workers 3 --timeout 60"
 
 
 #-----------------------------------------------------------
@@ -93,4 +93,4 @@ EXPOSE ${PORT}
 
 ENV FASTAPI_ENV=development
 
-CMD bash -c "uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000} --reload"
+CMD bash -c "uvicorn lora_api.main:app --host 0.0.0.0 --port ${PORT:-8000} --reload"

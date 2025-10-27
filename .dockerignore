@@ -1,3 +1,7 @@
+docker-compose.yaml
+docker-compose.yml
+compose.yaml
+compose.yml
 .git
 __pycache__/
 *.py[cod]
