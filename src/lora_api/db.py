@@ -11,9 +11,6 @@ DATABASE_URL = (
         f"@db:5432/{POSTGRES_DB}"
 )
 
-#DEBUG
-print(DATABASE_URL)
-
 engine = create_async_engine(DATABASE_URL, pool_pre_ping=True)
 SessionLocal = async_sessionmaker(engine, class_=AsyncSession, expire_on_commit=False)
 Base = declarative_base()
