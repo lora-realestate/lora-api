@@ -28,7 +28,7 @@ services:
       db:
         condition: service_healthy
     ports:
-      - "${PORT:-8000}"
+      - "${PORT:-8000}:8000"
     environment:
       PORT: "8000"
       FASTAPI_ENV: development
