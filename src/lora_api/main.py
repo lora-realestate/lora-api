@@ -14,6 +14,14 @@ app = FastAPI(
 def health_check():
     return JSONResponse({"status": "ok", "message": "Lora API is healthy"})
 
+@app.get("/ready", tags=["System"])
+async def readiness(session: AsyncSession = Depends(get_session)):
+    try:
+        await session.execute(text("SELECT 1"))
+        return JSONResponse({"ready":True})
+    except Exception:
+        return JSONResponse({"ready":False}, status_code=503)
+
 @app.get("/", tags=["System"])
 def root():
     return {"message": "que onda"}
