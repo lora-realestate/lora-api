@@ -83,7 +83,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 COPY --from=builder-dev /app/.venv /app/.venv
 
+COPY pyproject.toml ./
 COPY src/ ./src/
+COPY tests/ ./tests/
 
 RUN useradd -m -u 10001 appuser && chown -R appuser:appuser /app
 
